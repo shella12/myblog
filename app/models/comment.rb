@@ -3,6 +3,8 @@ class Comment < ApplicationRecord
   belongs_to :post
   after_save :count_comments
 
+  private 
+  
   def count_comments
     post.update(comments_counter: post.comments.all.length)
   end
