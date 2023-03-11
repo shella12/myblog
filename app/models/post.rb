@@ -4,9 +4,7 @@ class Post < ApplicationRecord
   has_many :comments
   after_save :count_posts
 
-  validates :title, presence: true
-  validates :title, length: { maximum: 250,
-                              too_long: '%<count>s characters is the maximum allowed' }
+  validates :title, presence: true, length: { in: 1..250 }
   validates :comments_counter, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
   validates :likes_counter, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
 
