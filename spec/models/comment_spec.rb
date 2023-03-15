@@ -1,18 +1,18 @@
 require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
-  context 'Tests For #Comment Model' do
-    before :each do
-      @user = User.create(name: 'Tom', photo: 'https://unsplash.com/photos/F_-0BxGuVvo',
-                          bio: 'Teacher from Mexico.')
+  subject do
+    @user = User.new
+    @user.name = 'James'
+    @user.posts_counter= 0
+    @post = Post.new(user: @user, title: 'Hello', text: 'Teacher need to get trained', comments_counter: 0,
+             likes_counter: 2)
 
-      @post = Post.create(author: @user, title: 'Hello', text: 'This is my first post')
+      end
 
-      @comment = Comment.create(post: @post, author: @user, text: 'Hi Tom!')
-    end
-
-    it 'Comments counter will be incremented' do
-      expect(@post.comments_counter).to eq 0
-    end
-  end
+      before { subject.save }
+          
+      it "Comments counter will be incremented" do
+      expect(@user.posts).to eq 1
+      end
 end

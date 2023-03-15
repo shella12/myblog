@@ -1,10 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
-  @author = User.create(name: 'James', photo: 'https://unsplash.com/photos/F_-0BxGuVvo', bio: 'Teacher from Poland.',
-                        posts_counter: 3)
   subject do
-    Post.new(author: @author, title: 'Hello', text: 'Teacher need to get trained', comments_counter: 1,
+    @user = User.new
+    @user.name = 'James'
+    @user.posts_counter= 3
+    Post.new(user: @user, title: 'Hello', text: 'Teacher need to get trained', comments_counter: 1,
              likes_counter: 2)
   end
   before { subject.save }
@@ -17,6 +18,8 @@ RSpec.describe Post, type: :model do
   it 'title must not be more than 250 characters long' do
     subject.title = 'a' * 260
     expect(subject).to_not be_valid
+    subject.title = 'a'
+    expect(subject).to be_valid
   end
 
   it 'comments_counter nil must not be valid' do

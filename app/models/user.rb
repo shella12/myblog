@@ -1,7 +1,7 @@
 class User < ApplicationRecord
-  has_many :likes, dependent: :destroy
-  has_many :comments, dependent: :destroy
-  has_many :posts, dependent: :destroy
+  has_many :likes, as: :author, dependent: :destroy
+  has_many :comments, as: :author, dependent: :destroy
+  has_many :posts, as: :author, dependent: :destroy
 
   validates :name, presence: true
   validates :posts_counter, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
